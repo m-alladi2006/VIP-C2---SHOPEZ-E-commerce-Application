@@ -7,7 +7,8 @@ const {
     getStocks,
     getStockById,
     updateStock,
-    deleteStock
+    deleteStock,
+    updateStockPrice
 } = require("../controllers/stockController");
 
 const protect = require("../middleware/authMiddleware");
@@ -25,5 +26,7 @@ router.get("/:id", protect, getStockById);
 router.put("/:id", protect, admin, updateStock);
 
 router.delete("/:id", protect, admin, deleteStock);
+
+router.patch("/:id/price", updateStockPrice);
 
 module.exports = router;

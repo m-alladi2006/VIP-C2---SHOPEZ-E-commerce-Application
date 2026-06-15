@@ -125,10 +125,34 @@ const deleteStock = async (req, res) => {
 
 };
 
+// Update Stock Price
+const updateStockPrice = async (req, res) => {
+    try {
+        const { price } = req.body;
+
+        const stock = await Stock.findByIdAndUpdate(
+            req.params.id,
+            { price },
+            { new: true }
+        );
+
+        if (!stock) {
+            return res.status(404).json({ message: "Stock not found" });
+        }
+
+        res.status(200).json(stock);
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Exporting all controller functions
 module.exports = {
     createStock,
     getStocks,
     getStockById,
     updateStock,
-    deleteStock
+    deleteStock,
+    updateStockPrice
 };
